@@ -123,8 +123,11 @@ kneeAngleVM         = kneeAngleVM(nQStart:end);
 if isstring(selectCandidate)
 
 else
-centralMarker       = centralMarker(nQStart:end, 1:3);
+    centralMarker       = centralMarker(nQStart:end, 1:3);
 end
+
+rotShankVM = rotShankVM(:,:,nQStart:end);
+rotThighVM = rotThighVM(:,:,nQStart:end);
 
 %%
 figure;

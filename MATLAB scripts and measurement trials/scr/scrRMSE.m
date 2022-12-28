@@ -1,6 +1,5 @@
-close all
-
 %% Calculation of the cycles for each joint angle and the RMSEs of said angle by crank cycle
+close all
 
 [kneeAngleVMIndx, kneeAngleVMPeriod, kneeAngleVMPeriodAvg]    = fnPerioda(kneeAngleVM);
 
@@ -80,9 +79,16 @@ meanKad = mean(kneeAngleVMPeriod(1:end-4))
 display(' +- ');
 stdKad = 2*std(kneeAngleVMPeriod(1:end-4))
 
+%% Cadence in RPM
+display('The mean of the cadence is: ');
+meanKadRPM = mean((100./kneeAngleVMPeriod(1:end-4)).*60)
+display(' +- ');
+stdKadRPM = 2*std((100./kneeAngleVMPeriod(1:end-4)).*60)
+
 %% Storing the min/max angles and cadence for metadata 
 
 cadenceMetaData         = string(meanKad)+" +/- "+string(stdKad);
+cadenceRPMMetaData      = string(meanKadRPM)+" +/- "+string(stdKadRPM);
 maximumKneeMetaData     = string(maxKneeAngleMean)+" +/- "+string(stDevMaxKneeAngle);
 minimumKneeMetaData     = string(minKneeAngleMean)+" +/- "+string(stDevMinKneeAngle);
 
@@ -122,24 +128,3 @@ end
 set(gca,'fontsize',30)
 xlabel("$\psi$ $[^{\circ}]$", 'interpreter', 'latex', 'FontSize',30)
 ylabel("$\alpha^{\textnormal{(ref)}}$ $[^{\circ}]$", 'interpreter', 'latex', 'FontSize', 30)
-
-%% Saving all period evaluation data into .mat
-
-eval(strcat('alfaKalmanVMRMSEbyPeriod', 'K', num2str(selectCandidate), 'M', num2str(selectMeasurement), '=', 'alfaKalmanVMRMSEbyPeriod',';'))
-eval(strcat('alfaCalVMRMSEbyPeriod', 'K', num2str(selectCandidate), 'M', num2str(selectMeasurement), '=', 'alfaCalVMRMSEbyPeriod',';'))
-
-eval(strcat('save("data/Meritve/K',  num2str(selectCandidate),'/RMSEbyPeriodM', ...
-    num2str(selectMeasurement), '.mat","','alfaKalmanVMRMSEbyPeriod', 'K', ...
-    num2str(selectCandidate), 'M', num2str(selectMeasurement), '",','"alfaCalVMRMSEbyPeriod', 'K', ...
-    num2str(selectCandidate), 'M', num2str(selectMeasurement),'");'))
-
-
-eval(strcat('save("data/Meritve/K',  num2str(selectCandidate),'/RMSEbyPeriodM', ...
-    num2str(selectMeasurement), '.mat","','alfaKalmanVMRMSEbyPeriod', 'K', ...
-    num2str(selectCandidate), 'M', num2str(selectMeasurement), '",','"alfaCalVMRMSEbyPeriod', 'K', ...
-    num2str(selectCandidate), 'M', num2str(selectMeasurement),'");'))
-
-eval(strcat('save("data/Meritve/K',  num2str(selectCandidate),'/KneeCrankAngle', ...
-    num2str(selectMeasurement), '.mat",','"kneeAngleVM",', ...
-    '"phaseCM",','"phaseMax",','"ymin",','"ymax");'))
-

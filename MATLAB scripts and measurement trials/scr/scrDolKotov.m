@@ -53,7 +53,7 @@ centralMarker   = centralMarker(1:kneeAngleLength, 1:3);
 
 %% LCSS alignment for the differences in clocks between sensor technologies
 
-[LCSSalfaKalman, LCSSalfaCal, LCSSKneeVM, LCSSCMX, LCSSCMZ] = fnWindowingLCSS(5000, 8, 6, alfaKalman, alfaCal, kneeAngleVM, centralMarker(:,1)-mean(centralMarker(:,1)) , centralMarker(:,3)-mean(centralMarker(:,3)));
+[LCSSalfaKalman, LCSSalfaCal, LCSSKneeVM, LCSSCMX, LCSSCMZ] = fnWindowingLCSS(5000, 6, 6, alfaKalman, alfaCal, kneeAngleVM, centralMarker(:,1)-mean(centralMarker(:,1)) , centralMarker(:,3)-mean(centralMarker(:,3)));
 
 alfaCalOld       = alfaCal;
 alfaCal          = LCSSalfaCal;
@@ -66,25 +66,6 @@ kneeAngleVM      = LCSSKneeVM;
 
 phaseCM = atan2(LCSSCMX, LCSSCMZ);
 phaseCM = 360-wrapTo360(phaseCM*180/pi);
-%%
-
-for i = 1 : 3
-    shift2 = fnVskladiKota(alfaKalman(1:1e4),kneeAngleVM(1:1e4));
-    L1 = length(alfaKalman(1:1e4));
-    
-    if shift2 < L1/2 % shift the IMU angles by shift2 number of spamles
-    
-        alfaCal          = alfaCal(shift2:end);
-        alfaKalman       = alfaKalman(shift2:end);
-    
-    else % otherwise shift the Qualisys angles by shift2 number of samples
-    
-        shift2          = fnVskladiKota(kneeAngleVM(1:1e4),alfaKalman(1:1e4));
-        kneeAngleVM     = kneeAngleVM(shift2:end);
-        centralMarker   = centralMarker(shift2:end, 1:3);
-    
-    end
-end
 
 %% Plotanje kota dolocenega iz geometrije
 

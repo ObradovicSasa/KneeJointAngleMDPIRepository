@@ -46,5 +46,6 @@ end
 %%
 writematrix(RMSEKneeMetaData,filename,'Sheet',1,'Range',strcat('E', K,':F',K));
 writematrix(cadenceMetaData,filename,'Sheet',1,'Range',strcat('G', K, ':G', K));
-writematrix(maximumKneeMetaData,filename,'Sheet',1,'Range',strcat('H', K, ':H', K));
-writematrix(minimumKneeMetaData,filename,'Sheet',1,'Range',strcat('I', K, ':I', K));
+writematrix(cadenceRPMMetaData,filename,'Sheet',1,'Range',strcat('H', K, ':H', K));
+writematrix(maximumKneeMetaData,filename,'Sheet',1,'Range',strcat('I', K, ':I', K));
+writematrix(minimumKneeMetaData,filename,'Sheet',1,'Range',strcat('J', K, ':J', K));

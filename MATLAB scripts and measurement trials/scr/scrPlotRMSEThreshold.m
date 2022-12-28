@@ -1,9 +1,13 @@
-% close all
+close all
 
-if measurementType == 1
-    load data/Meritve/RMSE5min.mat
-else
-    load data/Meritve/RMSE20min.mat
+for i = 1:7
+
+    if i == 5 && measurementType == 2
+        continue;
+    else
+        eval(strcat('load data/Meritve/K', num2str(i), '/RMSEbyPeriodM', num2str(measurementType), '.mat'))
+    end
+
 end
 
 %% 
@@ -18,6 +22,39 @@ for i = 1:7
         eval(strcat('alfaKalman10LastMeanK', num2str(i),'M', num2str(measurementType),'=round(mean(alfaKalmanVMRMSEbyPeriodK', num2str(i),'M', num2str(measurementType),'(end-12:end-2)),2);'));
         eval(strcat('alfaKalman10LastStDevK', num2str(i),'M', num2str(measurementType),'=round(2*std(alfaKalmanVMRMSEbyPeriodK', num2str(i),'M', num2str(measurementType),'(end-12:end-2)),2);'));;
     end
+end
+
+if  measurementType == 2
+    % First-degree polynomial
+    alfaCal10AverageMean        = round(mean([alfaCalVMRMSEbyPeriodK1M2(end-12:end-2) alfaCalVMRMSEbyPeriodK2M2(end-12:end-2) ...
+        alfaCalVMRMSEbyPeriodK3M2(end-12:end-2) alfaCalVMRMSEbyPeriodK4M2(end-12:end-2) alfaCalVMRMSEbyPeriodK6M2(end-12:end-2) ...
+        alfaCalVMRMSEbyPeriodK7M2(end-12:end-2)]),2);
+    alfaCal10AverageStd         = round(2*std([alfaCalVMRMSEbyPeriodK1M2(end-12:end-2) alfaCalVMRMSEbyPeriodK2M2(end-12:end-2) ...
+        alfaCalVMRMSEbyPeriodK3M2(end-12:end-2) alfaCalVMRMSEbyPeriodK4M2(end-12:end-2) alfaCalVMRMSEbyPeriodK6M2(end-12:end-2) ...
+        alfaCalVMRMSEbyPeriodK7M2(end-12:end-2)]),2);
+    % Kalman filter
+    alfaKalman10AverageMean     = round(mean([alfaKalmanVMRMSEbyPeriodK1M2(end-12:end-2) alfaKalmanVMRMSEbyPeriodK2M2(end-12:end-2) ...
+        alfaKalmanVMRMSEbyPeriodK3M2(end-12:end-2) alfaKalmanVMRMSEbyPeriodK4M2(end-12:end-2) alfaKalmanVMRMSEbyPeriodK6M2(end-12:end-2) ...
+        alfaKalmanVMRMSEbyPeriodK7M2(end-12:end-2)]),2);
+    alfaKalman10AverageStd      = round(2*std([alfaKalmanVMRMSEbyPeriodK1M2(end-12:end-2) alfaKalmanVMRMSEbyPeriodK2M2(end-12:end-2) ...
+        alfaKalmanVMRMSEbyPeriodK3M2(end-12:end-2) alfaKalmanVMRMSEbyPeriodK4M2(end-12:end-2) alfaKalmanVMRMSEbyPeriodK6M2(end-12:end-2) ...
+        alfaKalmanVMRMSEbyPeriodK7M2(end-12:end-2)]),2);
+
+else
+    % First-degree polynomial
+    alfaCal10AverageMean        = round(mean([alfaCalVMRMSEbyPeriodK1M1(end-12:end-2) alfaCalVMRMSEbyPeriodK2M1(end-12:end-2) ...
+        alfaCalVMRMSEbyPeriodK3M1(end-12:end-2) alfaCalVMRMSEbyPeriodK4M1(end-12:end-2) alfaCalVMRMSEbyPeriodK5M1(end-12:end-2) ...
+        alfaCalVMRMSEbyPeriodK6M1(end-12:end-2) alfaCalVMRMSEbyPeriodK7M1(end-12:end-2)]),2);
+    alfaCal10AverageStd         = round(2*std([alfaCalVMRMSEbyPeriodK1M1(end-12:end-2) alfaCalVMRMSEbyPeriodK2M1(end-12:end-2) ...
+        alfaCalVMRMSEbyPeriodK3M1(end-12:end-2) alfaCalVMRMSEbyPeriodK4M1(end-12:end-2) alfaCalVMRMSEbyPeriodK5M1(end-12:end-2) ...
+        alfaCalVMRMSEbyPeriodK6M1(end-12:end-2) alfaCalVMRMSEbyPeriodK7M1(end-12:end-2)]),2);
+    % Kalman filter
+    alfaKalman10AverageMean     = round(mean([alfaKalmanVMRMSEbyPeriodK1M1(end-12:end-2) alfaKalmanVMRMSEbyPeriodK2M1(end-12:end-2) ...
+        alfaKalmanVMRMSEbyPeriodK3M1(end-12:end-2) alfaKalmanVMRMSEbyPeriodK4M1(end-12:end-2) alfaKalmanVMRMSEbyPeriodK5M1(end-12:end-2) ...
+        alfaKalmanVMRMSEbyPeriodK6M1(end-12:end-2) alfaKalmanVMRMSEbyPeriodK7M1(end-12:end-2)]),2);
+    alfaKalman10AverageStd      = round(2*std([alfaKalmanVMRMSEbyPeriodK1M1(end-12:end-2) alfaKalmanVMRMSEbyPeriodK2M1(end-12:end-2) ...
+        alfaKalmanVMRMSEbyPeriodK3M1(end-12:end-2) alfaKalmanVMRMSEbyPeriodK4M1(end-12:end-2) alfaKalmanVMRMSEbyPeriodK5M1(end-12:end-2) ...
+        alfaKalmanVMRMSEbyPeriodK6M1(end-12:end-2) alfaKalmanVMRMSEbyPeriodK7M1(end-12:end-2)]),2);
 end
 
 %% Calculating the threshold and the valid parts of the measurements :) ->  KALMAN 
@@ -106,11 +143,11 @@ for i = 1:7
     end
 end
 plot(alfaKalmanMeanRMSE, 'color', 'g', lineWidth=3, LineStyle='--')
-set(gca,'fontsize',20)
-xlabel("cycles", 'interpreter', 'latex', 'FontSize',30)
-ylabel("$RMSE$ $[^{\circ}]$", 'interpreter', 'latex', 'FontSize', 30)
+set(gca,'fontsize',17)
+xlabel("cycles", 'interpreter', 'latex', 'FontSize',25)
+ylabel("$RMSE$ $[^{\circ}]$", 'interpreter', 'latex', 'FontSize', 25)
 xlim([0 length(eval(strcat('alfaKalmanVMRMSEbyPeriodK1M', num2str(measurementType))))])
-title("First-order polynomial drift compensation", 'interpreter', 'latex', 'FontSize',30)
+title("First-degree polynomial drift compensation", 'interpreter', 'latex', 'FontSize',25)
 
 subplot(212)
 hold on;grid on;
@@ -126,11 +163,11 @@ for i = 1:7
     end
 end
 plot(alfaKalmanMeanRMSE, 'color', 'g', lineWidth=3, LineStyle='--')
-set(gca,'fontsize',20)
-xlabel("cycles", 'interpreter', 'latex', 'FontSize',30)
-ylabel("$RMSE$ $[^{\circ}]$", 'interpreter', 'latex', 'FontSize', 30)
+set(gca,'fontsize',17)
+xlabel("cycles", 'interpreter', 'latex', 'FontSize',25)
+ylabel("$RMSE$ $[^{\circ}]$", 'interpreter', 'latex', 'FontSize', 25)
 xlim([0 length(eval(strcat('alfaKalmanVMRMSEbyPeriodK1M', num2str(measurementType))))])
-title("Kalman filter", 'interpreter', 'latex', 'FontSize',30)
+title("Kalman filter", 'interpreter', 'latex', 'FontSize',25)
 
 %% Plot of everything above -> Both Kalman and first order polynomial detrend mean ;)
 
@@ -149,11 +186,11 @@ for i = 1:7
     end
 end
 plot(alfaCalMeanRMSE, 'color', 'g', lineWidth=3, LineStyle='--')
-set(gca,'fontsize',20)
-xlabel("cycles", 'interpreter', 'latex', 'FontSize',30)
-ylabel("$RMSE$ $[^{\circ}]$", 'interpreter', 'latex', 'FontSize', 30)
+set(gca,'fontsize',15)
+xlabel("cycles", 'interpreter', 'latex', 'FontSize',20)
+ylabel("$RMSE$ $[^{\circ}]$", 'interpreter', 'latex', 'FontSize', 20)
 xlim([0 length(eval(strcat('alfaKalmanVMRMSEbyPeriodK1M', num2str(measurementType))))])
-title("First-order polynomial drift compensation", 'interpreter', 'latex', 'FontSize',30)
+title("First-degree polynomial drift compensation", 'interpreter', 'latex', 'FontSize',20)
 
 subplot(212)
 hold on;grid on;
@@ -169,8 +206,8 @@ for i = 1:7
     end
 end
 plot(alfaKalmanMeanRMSE, 'color', 'g', lineWidth=3, LineStyle='--')
-set(gca,'fontsize',20)
-xlabel("cycles", 'interpreter', 'latex', 'FontSize',30)
-ylabel("$RMSE$ $[^{\circ}]$", 'interpreter', 'latex', 'FontSize', 30)
+set(gca,'fontsize',15)
+xlabel("cycles", 'interpreter', 'latex', 'FontSize',20)
+ylabel("$RMSE$ $[^{\circ}]$", 'interpreter', 'latex', 'FontSize', 20)
 xlim([0 length(eval(strcat('alfaKalmanVMRMSEbyPeriodK1M', num2str(measurementType))))])
-title("Kalman filter", 'interpreter', 'latex', 'FontSize',30)
+title("Kalman filter", 'interpreter', 'latex', 'FontSize',20)

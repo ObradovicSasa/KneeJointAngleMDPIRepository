@@ -2,6 +2,7 @@ fs = 100;
 meritvePath = 'data/Meritve/';
 rotMat15 = 'data/Meritve/RotationMatrixAlignment/Za kandidate <= 5/RotMat.mat';
 rotMatK3 = 'data/Meritve/RotationMatrixAlignment/Za kandidate <= 5/RotationMatricesTestK3.mat';
+rotMatK5 = 'data/Meritve/RotationMatrixAlignment/Za kandidate <= 5/RotationMatricesTestK5.mat';
 rotMat67 = 'data/Meritve/RotationMatrixAlignment/Za kandidate >= 6/RotMat.mat';
 
 
