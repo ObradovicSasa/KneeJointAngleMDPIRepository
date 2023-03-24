@@ -12,7 +12,7 @@ for i = 2:length(om)-1
     deltaT = t(i)-t(i-1);%cas vzorcenja
     phi = -norm(v)*deltaT;%kot preden smo normirali vektor
     v = v/norm(v);    
-    R = rotationmat3D(phi,v);
+    R = fnRotacijskaMatrika(phi,v);
     g(i,:) = (R*g(i-1,:)')';
     %Rot(:,:,i) = R*Rot(:,:,i-1);
 end
@@ -23,6 +23,6 @@ for i = 2:length(om)-1
     deltaT = t(i+1)-t(i);
     phi = norm(v)*deltaT;
     v = v/norm(v);    
-    R = rotationmat3D(phi,v);
+    R = fnRotacijskaMatrika(phi,v);
     Rot(:,:,i) = Rot(:,:,i-1)*R;
 end
